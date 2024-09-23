@@ -1,5 +1,5 @@
 {% set name = "pyfes" %}
-{% set version = "2024.6.0" %}
+{% set version = "2.9.7" %}
 
 package:
   name: {{ name|lower }}
