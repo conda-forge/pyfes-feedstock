@@ -54,7 +54,6 @@ test:
 about:
   home: https://github.com/CNES/aviso-fes
   license: BSD-3-Clause
-  license_family: BSD
   license_file: LICENSE
   summary: 'FES prediction software'
   description: |
