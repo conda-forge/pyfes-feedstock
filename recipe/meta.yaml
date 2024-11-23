@@ -1,5 +1,6 @@
 {% set name = "pyfes" %}
-{% set version = "2024.6.0" %}
+{% set version = "2024.11.1" %}
+{% set build = 0 %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +8,16 @@ package:
 
 source:
   url: https://github.com/CNES/aviso-fes/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 8e89ff5bb318f7131471f52233602fdc5ab4bcdc3293f64d8314a6db45d1acce
+  sha256: 3d2e64554f1646afa257d5c498ec94403aa2e0295759ac0fb2f5fcd886b3a565
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv
-  number: 4
+  {% if target_platform == "win-64" %}
+  {% set generator = "-Cgenerator=\"Visual Studio 17 2022\"" %}
+  {% else %}
+  {% set generator = "" %}
+  {% endif %}
+  script: {{ PYTHON }} -m pip install . -vv --no-build-isolation {{ generator }}
+  number: {{ build }}
   skip: True  # [py<310]
 
 requirements:
@@ -30,8 +36,9 @@ requirements:
     - cmake
     - eigen
     - mkl                                 # [linux or win]
+    - setuptools
     - setuptools-scm
-    - libboost-headers >=1.79
+    - libboost-devel >=1.79
   run:
     - {{ pin_compatible('numpy') }}
     - python
@@ -52,6 +59,8 @@ about:
   description: |
     This package is the fully revised version of the FES distribution.
     This distribution includes the FES tidal prediction software.
+  doc_url: https://cnes.github.io/aviso-fes
+  dev_url: https://github.com/CNES/aviso-fes
 
 extra:
   recipe-maintainers:
