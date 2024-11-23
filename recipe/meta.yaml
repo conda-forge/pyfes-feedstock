@@ -31,7 +31,7 @@ requirements:
     - eigen
     - mkl                                 # [linux or win]
     - setuptools-scm
-    - libboost-headers >=1.79
+    - libboost-devel >=1.79
   run:
     - {{ pin_compatible('numpy') }}
     - python
