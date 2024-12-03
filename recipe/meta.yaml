@@ -7,6 +7,11 @@
 {% else %}
 {% set generator = "" %}
 {% endif %}
+{% if target_platform == "osx-arm64" %}
+{% set cmake_args = "-Ccmake-args=\"${CMAKE_ARGS}\"" %}
+{% else %}
+{% set cmake_args = "" %}
+{% endif %}
 
 package:
   name: {{ name|lower }}
@@ -17,7 +22,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv --no-build-isolation {{ generator }}
+  script: {{ PYTHON }} -m pip install . -vv --no-build-isolation {{ generator }} {{ cmake_args }}
   number: {{ build }}
   skip: True  # [py<310]
 
