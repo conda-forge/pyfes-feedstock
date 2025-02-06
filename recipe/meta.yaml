@@ -1,5 +1,6 @@
 {% set name = "pyfes" %}
-{% set version = "2024.11.1" %}
+{% set version = "2025.2.0" %}
+{% set sha256 = "af6d0e6d401f560d79070427df5a5b1f73f5c94a3194ad644dd0c7ef05704712" %}
 {% set build = 0 %}
 
 package:
@@ -8,15 +9,9 @@ package:
 
 source:
   url: https://github.com/CNES/aviso-fes/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 3d2e64554f1646afa257d5c498ec94403aa2e0295759ac0fb2f5fcd886b3a565
+  sha256: {{ sha256 }}
 
 build:
-  {% if target_platform == "win-64" %}
-  {% set generator = "-Cgenerator=\"Visual Studio 17 2022\"" %}
-  {% else %}
-  {% set generator = "" %}
-  {% endif %}
-  script: {{ PYTHON }} -m pip install . -vv --no-build-isolation {{ generator }}
   number: {{ build }}
   skip: True  # [py<310]
 
@@ -53,7 +48,6 @@ test:
 about:
   home: https://github.com/CNES/aviso-fes
   license: BSD-3-Clause
-  license_family: BSD
   license_file: LICENSE
   summary: 'FES prediction software'
   description: |
