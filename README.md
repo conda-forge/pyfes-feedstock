@@ -9,6 +9,10 @@ Package license: BSD-3-Clause
 
 Summary: FES prediction software
 
+Development: https://github.com/CNES/aviso-fes
+
+Documentation: https://cnes.github.io/aviso-fes
+
 This package is the fully revised version of the FES distribution.
 This distribution includes the FES tidal prediction software.
 
