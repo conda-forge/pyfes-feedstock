@@ -1,6 +1,17 @@
 {% set name = "pyfes" %}
 {% set version = "2025.3.0" %}
+{% set sha256 = "f62a1621871bb5f8599f282c2728a0915e1e047091ecad02eb593678232c57c6" %}
 {% set build = 0 %}
+{% if target_platform == "win-64" %}
+{% set generator = "-Cgenerator=\"Visual Studio 17 2022\"" %}
+{% else %}
+{% set generator = "" %}
+{% endif %}
+{% if target_platform == "osx-arm64" %}
+{% set cmake_args = "-Ccmake-args=-DCMAKE_CROSSCOMPILING=ON" %}
+{% else %}
+{% set cmake_args = "" %}
+{% endif %}
 
 package:
   name: {{ name|lower }}
@@ -8,17 +19,12 @@ package:
 
 source:
   url: https://github.com/CNES/aviso-fes/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.gz
-  sha256: f62a1621871bb5f8599f282c2728a0915e1e047091ecad02eb593678232c57c6
+  sha256: {{ sha256 }}
 
 build:
-  {% if target_platform == "win-64" %}
-  {% set generator = "-Cgenerator=\"Visual Studio 17 2022\"" %}
-  {% else %}
-  {% set generator = "" %}
-  {% endif %}
-  script: {{ PYTHON }} -m pip install . -vv --no-build-isolation {{ generator }}
+  script: {{ PYTHON }} -m pip install . -vv --no-build-isolation {{ generator }} {{ cmake_args }}
   number: {{ build }}
-  skip: true  # [py<310]
+  skip: True  # [py<310]
 
 requirements:
   build:
@@ -29,9 +35,9 @@ requirements:
     - {{ stdlib("c") }}
     - vs2017_win-64                       # [win]
     - cmake
-    - make                                # [linux]
+    - make                                # [linux or osx]
   host:
-    - python
+    - python 
     - pip
     - cmake
     - eigen
@@ -53,7 +59,6 @@ test:
 about:
   home: https://github.com/CNES/aviso-fes
   license: BSD-3-Clause
-  license_family: BSD
   license_file: LICENSE
   summary: 'FES prediction software'
   description: |
