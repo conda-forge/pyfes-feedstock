@@ -1,7 +1,7 @@
 {% set name = "pyfes" %}
 {% set version = "2025.9.0" %}
 {% set sha256 = "b95b4397d05b946b55059f7f9f74dd374165726785c008d3ba5632bd94d2bc3d" %}
-{% set build = 1 %}
+{% set build = 2 %}
 {% if target_platform == "win-64" %}
 {% set generator = "-Cgenerator=\"Visual Studio 17 2022\"" %}
 {% else %}
