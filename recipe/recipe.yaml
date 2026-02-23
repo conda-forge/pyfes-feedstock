@@ -1,0 +1,76 @@
+schema_version: 1
+
+context:
+  name: pyfes
+  version: "2026.2.0"
+  sha256: a0f708c452325716c2bb43b8a4e1071c003599a2b08618324e650f1f09a6b0d8
+  build_number: 0
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/CNES/aviso-fes/releases/download/${{ version }}/${{ name }}-${{ version }}.tar.gz
+  sha256: ${{ sha256 }}
+
+build:
+  number: ${{ build_number }}
+  skip:
+    - match(python, "<3.10")
+  script:
+    - ${{ PYTHON }} -m pip install . -vv --no-build-isolation ${{ '-Cgenerator="Visual Studio 17 2022"' if win else '' }} ${{ '-Ccmake-args=-DCMAKE_CROSSCOMPILING=ON' if osx and arm64 else '' }}
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - if: build_platform != target_platform
+      then: setuptools
+    - if: linux or osx
+      then: ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
+    - if: win
+      then: vs2017_win-64
+    - cmake
+    - if: linux or osx
+      then: make
+  host:
+    - python
+    - pip
+    - cmake
+    - eigen
+    - if: linux or win
+      then: mkl
+    - setuptools
+    - setuptools-scm
+    - libboost-devel >=1.79
+  run:
+    - ${{ pin_compatible('numpy') }}
+    - python
+    - netcdf4
+    - pyyaml
+    - if: linux or win
+      then: mkl
+
+tests:
+  - python:
+      imports:
+        - pyfes
+
+about:
+  homepage: https://github.com/CNES/aviso-fes
+  license: BSD-3-Clause
+  license_file: LICENSE
+  summary: FES prediction software
+  description: |
+    This package is the fully revised version of the FES distribution.
+    This distribution includes the FES tidal prediction software.
+  documentation: https://cnes.github.io/aviso-fes
+  repository: https://github.com/CNES/aviso-fes
+
+extra:
+  recipe-maintainers:
+    - fbriol
