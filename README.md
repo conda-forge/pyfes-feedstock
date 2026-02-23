@@ -16,7 +16,6 @@ Documentation: https://cnes.github.io/aviso-fes
 This package is the fully revised version of the FES distribution.
 This distribution includes the FES tidal prediction software.
 
-
 Current build status
 ====================
 
