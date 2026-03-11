@@ -2,8 +2,8 @@ schema_version: 1
 
 context:
   name: pyfes
-  version: "2026.2.0"
-  sha256: a0f708c452325716c2bb43b8a4e1071c003599a2b08618324e650f1f09a6b0d8
+  version: "2026.3.0"
+  sha256: 71cc4e88d9ba2a76ae648a2655a865dc68ae2615daec2f6044da343c0bcb59c5
   build_number: 0
 
 package:
@@ -24,11 +24,10 @@ build:
 requirements:
   build:
     - if: build_platform != target_platform
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
-    - if: build_platform != target_platform
-      then: setuptools
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - setuptools
     - if: linux or osx
       then: ${{ compiler('cxx') }}
     - ${{ stdlib('c') }}
