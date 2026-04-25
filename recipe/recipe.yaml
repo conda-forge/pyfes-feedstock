@@ -4,7 +4,7 @@ context:
   name: pyfes
   version: "2026.3.0"
   sha256: 71cc4e88d9ba2a76ae648a2655a865dc68ae2615daec2f6044da343c0bcb59c5
-  build_number: 0
+  build_number: 1
 
 package:
   name: ${{ name }}
