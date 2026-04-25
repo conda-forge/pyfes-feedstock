@@ -2,8 +2,8 @@ schema_version: 1
 
 context:
   name: pyfes
-  version: "2026.3.0"
-  sha256: 71cc4e88d9ba2a76ae648a2655a865dc68ae2615daec2f6044da343c0bcb59c5
+  version: "2026.4.0"
+  sha256: 83f78aadbdeae203e2cf585353250cedd430d86b9576c754dc22a4b3b7c34a38
   build_number: 0
 
 package:
