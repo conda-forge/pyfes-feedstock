@@ -17,7 +17,7 @@ source:
 build:
   number: ${{ build_number }}
   skip:
-    - match(python, "<3.10")
+    - match(python, "<3.11")
   script:
     - ${{ PYTHON }} -m pip install . -vv --no-build-isolation ${{ '-Cgenerator="Visual Studio 17 2022"' if win else '' }} ${{ '-Ccmake-args=-DCMAKE_CROSSCOMPILING=ON' if osx and arm64 else '' }}
 
@@ -46,7 +46,7 @@ requirements:
       then: mkl
     - setuptools
     - setuptools-scm
-    - libboost-devel >=1.79
+    - libboost-devel >=1.90
   run:
     - ${{ pin_compatible('numpy') }}
     - python
