@@ -2,9 +2,9 @@ schema_version: 1
 
 context:
   name: pyfes
-  version: "2026.5.2"
-  sha256: f7b1e170d9726423583adb425fe9fdb1c5e2494104fe8eea193c339d561b2fed
-  build_number: 1
+  version: "2026.10.0"
+  sha256: 04a1d183b5e57905cb3fa498cb68b971251d3a7ac3d510c3effdd50a247ca2fb
+  build_number: 0
 
 package:
   name: ${{ name }}
